@@ -1,0 +1,7 @@
+python-fasthtml
+lightgbm
+scikit-learn
+joblib
+pandas
+numpy
+uvicorn
