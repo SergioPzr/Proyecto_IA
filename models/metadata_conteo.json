@@ -1,0 +1,41 @@
+{
+  "modelo_seleccionado": "LightGBM",
+  "requiere_escalado": false,
+  "columnas_escalado": [
+    "DIA_SEMANA",
+    "MES_NUM"
+  ],
+  "columnas_entrada": [
+    "DIA_SEMANA",
+    "MES_NUM",
+    "ANCASH",
+    "APURIMAC",
+    "AREQUIPA",
+    "AYACUCHO",
+    "CAJAMARCA",
+    "CALLAO",
+    "CUSCO",
+    "HUANCAVELICA",
+    "HUANUCO",
+    "ICA",
+    "JUNIN",
+    "LA LIBERTAD",
+    "LAMBAYEQUE",
+    "LIMA",
+    "LORETO",
+    "MADRE DE DIOS",
+    "MOQUEGUA",
+    "PASCO",
+    "PIURA",
+    "PUNO",
+    "SAN MARTIN",
+    "TACNA",
+    "TUMBES",
+    "UCAYALI",
+    "MANANA",
+    "NOCHE",
+    "TARDE"
+  ],
+  "percentil_33": 12.707800923257167,
+  "percentil_66": 28.169150621864574
+}
