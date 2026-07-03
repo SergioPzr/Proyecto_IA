@@ -151,7 +151,7 @@ Con FastHTML **no hace falta una API separada**: el mismo proceso Python sirve e
 |---|---|---|
 | `departamento` | `str` | Uno de los 25 departamentos, en mayúsculas (ej. `"LIMA"`) |
 | `dia_semana` | `int` | 0 (lunes) a 6 (domingo) |
-| `franja_horaria` | `str` | `"MADRUGADA"`, `"MANANA"`, `"TARDE"`, `"NOCHE"` |
+| `franja_horaria` | `str` | `"MADRUGADA"`, `"MAÑANA"`, `"TARDE"`, `"NOCHE"` |
 | `mes` | `int` | 1 a 12 |
 
 **Salida:**
