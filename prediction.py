@@ -106,13 +106,29 @@ def predecir_casos(departamento: str, dia_semana: int, franja_horaria: str, mes:
     # Etiqueta el resultado comparándolo contra los percentiles históricos
     if casos_esperados <= p33:
         nivel_frecuencia = "BAJO"
+        # Interpolación: de 0 a p33 corresponde a 0% a 33.3%
+        posicion_percentil = (casos_esperados / p33) * 33.3 if p33 > 0 else 0
     elif casos_esperados <= p66:
         nivel_frecuencia = "MEDIO"
+        # Interpolación: de p33 a p66 corresponde a 33.3% a 66.6%
+        rango_valor = p66 - p33
+        posicion_percentil = 33.3 + ((casos_esperados - p33) / rango_valor) * 33.3 if rango_valor > 0 else 33.3
     else:
         nivel_frecuencia = "ALTO"
+        # Extrapolación: p66 en adelante. Estimamos que el doble del p66 es ~98% para evitar llegar a 100%
+        max_estimado = p66 * 2.5 # Un valor conservador
+        if casos_esperados >= max_estimado:
+            posicion_percentil = 98.0
+        else:
+            rango_valor = max_estimado - p66
+            posicion_percentil = 66.6 + ((casos_esperados - p66) / rango_valor) * (98.0 - 66.6) if rango_valor > 0 else 66.6
+            
+    # Redondeamos a un decimal para presentación visual
+    posicion_percentil = round(posicion_percentil, 1)
         
     # Devuelve el número predicho y su nivel de frecuencia como diccionario
     return {
         "casos_esperados": casos_esperados,
-        "nivel_frecuencia": nivel_frecuencia
+        "nivel_frecuencia": nivel_frecuencia,
+        "posicion_percentil": posicion_percentil
     }
