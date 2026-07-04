@@ -12,6 +12,7 @@ app, rt = fast_app(pico=False, default_hdrs=True)
 static_dir = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
+#Declarion de diccionarios para los valores que se pueden ingresar
 DIAS_MAP = {
     0: "Lunes",
     1: "Martes",
@@ -50,7 +51,7 @@ COLORES_NIVEL = {
     "alto":  ("var(--nivel-alto)",  "var(--nivel-alto-bg)",  "220, 38, 38"),
 }
 
-# --- COMPONENTES REUTILIZABLES ---
+#Componente del sistema
 
 def header_nav(active_page):
     monograma_svg = NotStr(
@@ -103,7 +104,7 @@ def layout(content, active_page):
         )
     )
 
-# --- PANTALLA 1: INICIO ---
+#Pantalla inicial, presenta el sistema y su funcion
 @rt("/")
 def get():
     foto_hero_url = "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=900&q=80"
@@ -143,7 +144,7 @@ def get():
     )
     return layout(content, "inicio")
 
-# --- PANTALLA 2: CONSULTAR ---
+#Pantalla 2, es el formulario donde se ingresaran los datos para la prediccion
 @rt("/consultar")
 def get():
     deptos_sorted = sorted(DEPARTAMENTOS_VALIDOS)
@@ -196,7 +197,7 @@ def get():
     )
     return layout(content, "consultar")
 
-# --- POST: PROCESAR PREDICCIÓN ---
+#Resultado de la prediccion
 @rt("/predecir")
 def post(departamento: str = None, dia_semana: str = None, franja_horaria: str = None, mes: str = None):
     logger.info(f"Prediction requested: Dept={departamento}, Dia={dia_semana}, Franja={franja_horaria}, Mes={mes}")
@@ -256,7 +257,7 @@ def post(departamento: str = None, dia_semana: str = None, franja_horaria: str =
             P(str(e), style="font-size: 0.85rem; color: var(--muted); font-family: monospace;")
         )
 
-# --- PANTALLA 3: CÓMO FUNCIONA ---
+#Pantalla 3, como funciona el modelo
 @rt("/como-funciona")
 def get():
     content = Div(cls="articulo")(
@@ -331,7 +332,7 @@ def get():
     )
     return layout(content, "como-funciona")
 
-# Iniciar el servidor
+#Inicia el servidor
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=5000, reload=True)
