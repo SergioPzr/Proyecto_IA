@@ -412,3 +412,17 @@ button[type="submit"]:active, .btn-primary:active {
   border-radius: var(--radius-card);
   background: var(--nivel-alto-bg);
 }
+
+.imagen-diagrama {
+  display: block;
+  margin: var(--space-4) auto var(--space-2) auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border);
+  background-color: #ffffff;
+  padding: var(--space-2);
+  box-shadow: 0 4px 12px rgba(26, 95, 67, 0.03);
+}
