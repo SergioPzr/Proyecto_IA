@@ -107,8 +107,8 @@ def layout(content, active_page):
 #Pantalla inicial, presenta el sistema y su funcion
 @rt("/")
 def get():
-    foto_hero_url = "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=900&q=80"
-    foto_secundaria_url = "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=900&q=80"
+    foto_hero_url = "https://img.magnific.com/vector-premium/lindo-oficial-seguridad-publica-ayudando-ciudadanos-vector-dibujos-animados_1022901-115932.jpg?semt=ais_hybrid&w=740&q=80"
+    foto_secundaria_url = "https://img.magnific.com/vector-gratis/lindo-hombre-policia-sosteniendo-palo-baston-dibujos-animados-vector-icono-ilustracion-personas-profesion-aislada_138676-8473.jpg?semt=ais_hybrid&w=740&q=80"
 
     content = Div(
         Div(cls="presentacion-dos-columnas")(
@@ -302,20 +302,27 @@ def get():
             )
         ),
 
-        # Bloque 04
+        # Bloque 04 - LightGBM
         Div(cls="burbuja-metodo")(
-            H2(Span("04", cls="numero-badge"), "¿Cómo se construyó el modelo?"),
+            H2(Span("04", cls="numero-badge"), "¿Cómo funciona LightGBM?"),
             P(
-                "Para construir el sistema, entrenamos y comparamos dos modelos de inteligencia artificial: "
-                "LightGBM (basado en árboles de decisión) y LinearSVR (basado en regresión lineal). "
-                "Ambos se evaluaron con los mismos datos y se seleccionó LightGBM "
-                "por haber obtenido la mayor precisión en ambos entrenamientos."
-            )
+                "LightGBM funciona armando muchos árboles de decisión pequeños, uno detrás de otro (en nuestro caso, 100 árboles), donde cada árbol nuevo no intenta adivinar el resultado final, sino corregir lo que el árbol anterior dejó mal calculado; cada árbol va separando los datos en grupos haciendo preguntas simples (por ejemplo, si es de Lima, si es turno noche, en qué mes), y cada grupo final se llama hoja, con un número asignado que se suma poquito a poquito (solo el 10% cada vez, para no corregir de golpe y equivocarse) a la predicción que se lleva hasta ese momento; además, cada árbol siempre revisa primero el grupo donde más se está fallando, y ahí es donde sigue haciendo preguntas para dividirlo mejor. Así, entre los 100 árboles, cada uno va afinando un poquito más lo que quedó mal calculado por los anteriores, hasta que al final, sumando todas esas pequeñas correcciones, se llega a la predicción final del conteo."
+            ),
+            Img(src="/static/img/lightgbm.png", alt="Esquema LightGBM Leaf-wise", cls="imagen-diagrama")
         ),
 
-        # Bloque 05
+        # Bloque 05 - LinearSVR
         Div(cls="burbuja-metodo")(
-            H2(Span("05", cls="numero-badge"), "Limitaciones del modelo"),
+            H2(Span("05", cls="numero-badge"), "¿Cómo funciona LinearSVR?"),
+            P(
+                "LinearSVR funciona buscando una sola fórmula que combine nuestras variables (departamento, turno, día, mes), multiplicando cada una por un peso fijo, y sumando todo eso para llegar a un número final; durante el entrenamiento, va ajustando esos pesos para que esa suma quede lo más cerca posible del valor real en la mayoría de los casos, permitiéndose no preocuparse por errores pequeños que caigan dentro de un margen aceptable alrededor de esa línea, y enfocándose en corregir solamente los casos que quedan bien lejos de ella. A diferencia de un modelo con árboles, aquí no hay grupos ni preguntas sucesivas: es una única combinación de pesos que se aplica siempre de la misma manera a cualquier fila nueva, multiplicando cada variable por su peso correspondiente y sumando el resultado para obtener la predicción final."
+            ),
+            Img(src="/static/img/linearsvr.png", alt="Esquema de Regresión LinearSVR", cls="imagen-diagrama")
+        ),
+
+        # Bloque 06
+        Div(cls="burbuja-metodo")(
+            H2(Span("06", cls="numero-badge"), "Limitaciones del modelo"),
             Div(cls="limitaciones-box-manantial")(
                 Ul(style="padding-left: 0; list-style-type: none; margin-bottom: 0;")(
                     Li(Strong("Datos del año 2019:"), " El sistema solo conoce la información de ese año. No puede prever cambios recientes o situaciones fuera de lo común."),
