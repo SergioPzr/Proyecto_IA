@@ -36,5 +36,5 @@ pip install -r requirements.txt
 python main.py
 ```
 
-La aplicación se iniciará y estará disponible en su navegador en:
+La aplicación se iniciará y estará disponible en:
 **http://localhost:5000**
